@@ -193,7 +193,7 @@ class Assignment08 : public BaseProject {
 	// Very likely this will be where you will be writing the logic of your application.
 	void updateUniformBuffer(uint32_t currentImage) {
 		const float ROT_SPEED = glm::radians(120.0f);
-		const float MOVE_SPEED = 2.0f;
+		const float MOVE_SPEED = 5.0f;
 
 		static float debounce = false;
 		static int curDebounce = 0;

@@ -1825,10 +1825,10 @@ std::cout << NAr << " " << poolSizes.size() << "\n";
 		if(glfwGetKey(window, GLFW_KEY_W)) {
 			m.z = 1.0f;
 		}
-		if(glfwGetKey(window, GLFW_KEY_R)) {
+		if(glfwGetKey(window, GLFW_KEY_SPACE)) {
 			m.y = 1.0f;
 		}
-		if(glfwGetKey(window, GLFW_KEY_F)) {
+		if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL)) {
 			m.y = -1.0f;
 		}
 		
