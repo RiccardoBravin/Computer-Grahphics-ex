@@ -82,12 +82,12 @@ void main() {
 
 	//spherical armonics computation
 	vec3 Ambient = 	C00 + 
-					N.x * C11 + 
-					N.y * C1m1 + 
-					N.z * C10 + 
+					N.x * C1m1 + 
+					N.y * C10 + 
+					N.z * C11 + 
 					(N.x * N.y) * C2m2 + 
-					(N.y * N.z) * C1m1 + 
-					(N.z * N.x) * C11 + 
+					(N.y * N.z) * C2m1 + 
+					(N.z * N.x) * C21 + 
 					(N.x*N.x - N.y*N.y) * C22 +
 					(3*N.z*N.z - 1) * C20;
 

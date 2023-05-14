@@ -278,7 +278,7 @@ class Assignment13 : public BaseProject {
 		const float maxPitch = glm::radians(60.0f);
 		// Rotation and motion speed
 		const float ROT_SPEED = glm::radians(120.0f);
-		const float MOVE_SPEED = 2.0f;
+		const float MOVE_SPEED = 5.0f;
 
 		// Integration with the timers and the controllers
 		float deltaT;
