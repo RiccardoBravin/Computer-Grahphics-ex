@@ -28,25 +28,20 @@ vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float rough
 	//                 in particular, parmeter K seen in the slides is: float K = 1.0f - metallic;
 	//float roughness - Material roughness (parmeter rho in the slides).
 	//specular color Ms is not passed, and implicitely considered white: vec3 Ms = vec3(1.0f);
-	
-
-
-	float VXN = max(0.000001, dot(V, N));
-	float LXN = max(0.000001, dot(L, N));
-
-
-	vec3 diffuse = Md * max(LXN, 0); //diffuse term
 
 	float rhosq = roughness * roughness;
 
-	vec3 H = normalize(V + L);
+	vec3 H = normalize(V + L);	
 	float NXH = clamp(dot(N, H), 0, 1);
-	float VXH = clamp(dot(V, H), 0, 1);	
-
+	float VXH = clamp(dot(V, H), 0, 1);
 	
-	float D = rhosq / (3.14159265359f * pow(pow(NXH, 2)*(rhosq - 1) + 1, 2));
+	float D = rhosq / (3.14159265359f * pow(NXH*NXH*(rhosq - 1) + 1, 2)); //Normal distribution function
 
-	float F = F0 + (1 - F0) * pow(1 - VXH, 5);
+	float F = F0 + (1 - F0) * pow(1 - VXH, 5);  //Fresnel term
+
+
+	float VXN = dot(V, N);
+	float LXN = dot(L, N);
 
 	float VXNsq = VXN * VXN;
 	float LXNsq = LXN * LXN;
@@ -54,9 +49,13 @@ vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float rough
 	float G1 = 2 / (1 + sqrt(1 + rhosq * (1 - VXNsq) / VXNsq));
 	float G2 = 2 / (1 + sqrt(1 + rhosq * (1 - LXNsq) / LXNsq));
 
-	float G = G1 * G2;
+	float G = G1 * G2; //Geometry term
 
-	vec3 specular = vec3(1.0f)*D*F*G / (4 * VXN);
+	//Specular term
+	vec3 specular = vec3(1.0f)*D*F*G / (4 * clamp(VXN, 0, 1));
+
+	//Diffuse term
+	vec3 diffuse = Md * max(LXN, 0); 
 	
 	return (1-metallic) * diffuse + metallic * specular;
 }
