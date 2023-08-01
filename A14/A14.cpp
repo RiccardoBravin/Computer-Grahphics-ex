@@ -282,7 +282,7 @@ class Assignment14 : public BaseProject {
 		const float maxPitch = glm::radians(60.0f);
 		// Rotation and motion speed
 		const float ROT_SPEED = glm::radians(120.0f);
-		const float MOVE_SPEED = 2.0f;
+		const float MOVE_SPEED = 5.0f;
 
 		// Integration with the timers and the controllers
 		float deltaT;
@@ -303,7 +303,7 @@ class Assignment14 : public BaseProject {
 		glm::vec3 uz = glm::rotate(glm::mat4(1.0f), Yaw, glm::vec3(0,1,0)) * glm::vec4(0,0,-1,1);
 		Pos = Pos + MOVE_SPEED * m.x * ux * deltaT;
 		Pos = Pos + MOVE_SPEED * m.y * glm::vec3(0,1,0) * deltaT;
-		Pos.y = Pos.y < 0.0f ? 0.0f : Pos.y;
+		//Pos.y = Pos.y < 0.0f ? 0.0f : Pos.y;
 		Pos = Pos + MOVE_SPEED * m.z * uz * deltaT;
 		// Rotation
 		Yaw = Yaw - ROT_SPEED * deltaT * r.y;

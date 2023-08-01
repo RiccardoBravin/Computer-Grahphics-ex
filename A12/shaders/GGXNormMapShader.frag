@@ -32,8 +32,8 @@ vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float rough
 	float rhosq = roughness * roughness;
 
 	vec3 H = normalize(V + L);	
-	float NXH = clamp(dot(N, H), 0, 1);
-	float VXH = clamp(dot(V, H), 0, 1);
+	float NXH = clamp(dot(N, H), 0.00001, 1);
+	float VXH = clamp(dot(V, H), 0.00001, 1);
 	
 	float D = rhosq / (3.14159265359f * pow(NXH*NXH*(rhosq - 1) + 1, 2)); //Normal distribution function
 
@@ -42,6 +42,9 @@ vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float rough
 
 	float VXN = dot(V, N);
 	float LXN = dot(L, N);
+	
+
+	//VXN = clamp(VXN, 0.0001,1);
 
 	float VXNsq = VXN * VXN;
 	float LXNsq = LXN * LXN;
@@ -52,7 +55,7 @@ vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float rough
 	float G = G1 * G2; //Geometry term
 
 	//Specular term
-	vec3 specular = vec3(1.0f)*D*F*G / (4 * clamp(VXN, 0, 1));
+	vec3 specular = vec3(1.0f)*D*F*G / (4 * clamp(VXN, 0.0001, 1));
 
 	//Diffuse term
 	vec3 diffuse = Md * max(LXN, 0); 
